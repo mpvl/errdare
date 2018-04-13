@@ -157,7 +157,10 @@ func runSim(t *testing.T, s *Simulation, f func(s *Simulation) error) {
 		defer func() {
 			if r := recover(); r != nil {
 				if _, ok := r.(simError); !ok {
-					panic(r)
+					if !s.config.IgnorePanicOrder {
+						panic(r)
+					}
+					err = simError{mode: modePanic, key: "user"}
 				}
 				// TODO: be pedantic and check that we have the right kind of
 				// panic?
