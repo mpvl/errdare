@@ -2,6 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package errdare exemplifies some of the challenges of Go error handling by
+// daring anyone to fix them.
+//
+//      go get github.com/mpvl/errdare
+//
+// To fastest way to get started is to open dares_test.go, set dareOn to true,
+// and fix the tests until they pass. See the errdare.go file or the godoc
+// documentation for a description of each dare.
 package errdare
 
 import (
