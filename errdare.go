@@ -40,7 +40,7 @@ import (
 //  		}
 //  		defer r.Close()
 //
-//  		w := tc.NewWriter()
+//  		w := tc.NewWriter(c)
 //  		defer func() { w.CloseWithError(err) }()
 //
 //  		_, err = tc.Copy(w, r)
