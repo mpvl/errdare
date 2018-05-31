@@ -62,6 +62,11 @@ type fatalError struct {
 
 func (e simError) Error() string { return fmt.Sprintf("%s: %s", e.key, e.mode) }
 
+// NewPanicError returns a new error that is identifiable as a panic error.
+func NewPanicError(msg string) error {
+	return simError{mode: modePanic, key: msg}
+}
+
 // An Option configures a simulation.
 type Option func(*options)
 
@@ -144,7 +149,13 @@ func isPanic(err error) bool {
 	if err == nil {
 		return false
 	}
-	return err.(simError).mode == modePanic
+	switch e := err.(type) {
+	case simError:
+		return e.mode == modePanic
+	case interface{ IsPanic() bool }:
+		return e.IsPanic()
+	}
+	return false
 }
 
 func runSim(t *testing.T, s *Simulation, f func(s *Simulation) error) {

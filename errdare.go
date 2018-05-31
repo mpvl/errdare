@@ -19,6 +19,10 @@ import (
 	"github.com/mpvl/errdare/errtest"
 )
 
+// PanicError is an error that users may return if the IgnorePanicOrder option
+// is set and a panic is detected.
+var PanicError = errtest.NewPanicError("user")
+
 // The CloudStorage challenge: open the client, reader, and writer and copy the
 // contents of the reader to the writer. Any error while copying the contents
 // should result in a non-nil error being passed to the Writer's CloseWithError

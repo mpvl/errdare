@@ -96,6 +96,10 @@ func TestPipeConvertCorrect(t *testing.T) {
 			defer func() {
 				if r := recover(); r != nil {
 					err = r.(error)
+					pipeWriter.CloseWithError(err)
+					// simulator does not support gobbling panic
+					// panic(r)
+					return
 				}
 				pipeWriter.CloseWithError(err)
 			}()
